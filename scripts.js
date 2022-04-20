@@ -9,8 +9,8 @@ let eventsOpButtons=[];
 //(i know its javascript, but still)
 //all types will be string and i will convert right before calculations
 let operationFlag="";
-let pastNumber="";
 let currentNumber="";
+let pastNumber="";
 
 
 for(buttn of [...numberButtons]){
@@ -23,13 +23,34 @@ let eventClearButton=clearButton.addEventListener('click',function(){clearDispla
 let eventEqualButton = equalButton.addEventListener('click',function(){calculate()});
 
 function calculate(){
-    
+    switch(operationFlag){
+        case "+":
+            add(toNumbers(currentNumber,pastNumber));
+            break;
+        case "-":
+            subtract(toNumbers(currentNumber,pastNumber));
+            break;
+        case "*":
+            multiply(toNumbers(currentNumber,pastNumber));
+            break;
+        case "/":
+            divide(toNumbers(currentNumber,pastNumber));
+            break;
+        default:
+            pastNumber=currentNumber;
+            currentNumber="";
+            break;
+    }
+}
+
+function toNumbers(s1,s2){
+    return [parseFloat(s1),parseFloat(s2)];
 }
 
 function clearDisplay(){
     updateDisplay("");
-    pastNumber="";
     currentNumber="";
+    pastNumber="";
     operationFlag="";
 }
 
@@ -38,35 +59,37 @@ function updateDisplay(valueToDisplay){
 }
 
 function rememberValue(number){
-    pastNumber+=number;
-    updateDisplay(pastNumber);
+    currentNumber+=number;
+    updateDisplay(currentNumber);
 }
 
 function setFlag(operand){
-    flagType=operand;
+    operationFlag=operand;
+    pastNumber=currentNumber;
+    currentNumber="";
 }
 
-function add(v1,v2){
-    pastNumber=String(v1+v2);
-    updateDisplay(pastNumber);
+function add(values){
+    currentNumber=String(values[0]+values[1]);
+    updateDisplay(currentNumber);
 }
 
-function subtract(v1,v2){
-    pastNumber=String(v1-v2);
-    updateDisplay(pastNumber);
+function subtract(values){
+    currentNumber=String(values[0]-values[1]);
+    updateDisplay(currentNumber);
 }
 
-function multiply(v1,v2){
-    pastNumber=String(v1*v2);
-    updateDisplay(pastNumber);
+function multiply(values){
+    currentNumber=String(values[0]*values[1]);
+    updateDisplay(currentNumber);
 }
 
-function divide(v1,v2){
-    if(v2==0){
-        pastNumber="ERROR";
+function divide(values){
+    if(values[1]==0){
+        currentNumber="ERROR";
     }
     else{
-        pastNumber=String(v1/v2);
+        currentNumber=String(values[0]/values[1]);
     }
-    updateDisplay(pastNumber);
+    updateDisplay(currentNumber);
 }
