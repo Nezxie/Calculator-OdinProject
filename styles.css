@@ -29,6 +29,8 @@ html{
     border-left:1rem solid rgb(122, 138, 131);
     margin: 2rem;
     border-radius:2rem ;
+    display: flex;
+    flex-direction: column;
 
 }
 .buttons{
@@ -40,24 +42,25 @@ html{
 }
 
 button{
-    font-size: 2rem;
+    font-size: 2em;
     color:#333;
     font-family: 'Lucida Console','Lucida Sans Typewriter',monaco,'Bitstream Vera Sans Mono',monospace; 
     background-color: rgb(236, 231, 190) ;
-    border:.5rem solid rgb(236, 231, 190);
+    border:.5em solid rgb(236, 231, 190);
     
-    border-bottom:.5rem solid rgb(221, 216, 178);
-    border-right:.5rem solid rgb(221, 216, 178);  
+    border-bottom:.5em solid rgb(221, 216, 178);
+    border-right:.5em solid rgb(221, 216, 178);  
         
-    border-radius: 1.75rem;
-    margin: .25rem;
+    border-radius: 1.75em;
+    margin: .25em;
     cursor:pointer;
+
 }
 button:active{
-    border:.5rem solid rgb(236, 231, 190);
+    border:.5em solid rgb(236, 231, 190);
     border:none;
-    border-top:.5rem solid rgb(221, 216, 178);
-    border-left:.5rem solid rgb(221, 216, 178);
+    border-top:.5em solid rgb(221, 216, 178);
+    border-left:.5em solid rgb(221, 216, 178);
 }
 
 #C{
@@ -84,4 +87,9 @@ button:active{
 }
 .nulBut:active{
     border:none;    
+}
+
+#display{
+    align-self: flex-end;
+    margin: 1rem;
 }
