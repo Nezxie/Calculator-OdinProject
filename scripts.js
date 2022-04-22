@@ -23,23 +23,25 @@ let eventClearButton=clearButton.addEventListener('click',function(){clearDispla
 let eventEqualButton = equalButton.addEventListener('click',function(){calculate()});
 
 function calculate(){
-    switch(operationFlag){
-        case "+":
-            add(toNumbers(currentNumber,pastNumber));
-            break;
-        case "-":
-            subtract(toNumbers(currentNumber,pastNumber));
-            break;
-        case "*":
-            multiply(toNumbers(currentNumber,pastNumber));
-            break;
-        case "/":
-            divide(toNumbers(currentNumber,pastNumber));
-            break;
-        default:
-            pastNumber=currentNumber;
-            currentNumber="";
-            break;
+    if(pastNumber&currentNumber){
+        switch(operationFlag){
+            case "+":
+                add(toNumbers(currentNumber,pastNumber));
+                break;
+            case "-":
+                subtract(toNumbers(currentNumber,pastNumber));
+                break;
+            case "*":
+                multiply(toNumbers(currentNumber,pastNumber));
+                break;
+            case "/":
+                divide(toNumbers(currentNumber,pastNumber));
+                break;
+            default:
+                pastNumber=currentNumber;
+                currentNumber="";
+                break;
+        }
     }
 }
 
@@ -65,11 +67,18 @@ function rememberValue(number){
 
 function setFlag(operand){
     operationFlag=operand;
+    if(parseFloat(currentNumber)==NaN){
+        currentNumber = "0";
+    }
     pastNumber=currentNumber;
     currentNumber="";
 }
 
 function add(values){
+    if(values.includes("ERROR")||values.includes("NaN")){
+        values[values.indexOf("ERROR")]="0";
+        values[values.indexOf("NaN")]="0";
+    }
     currentNumber=String(values[0]+values[1]);
     updateDisplay(currentNumber);
 }
@@ -85,11 +94,11 @@ function multiply(values){
 }
 
 function divide(values){
-    if(values[1]==0){
+    if(values[0]==0){
         currentNumber="ERROR";
     }
     else{
-        currentNumber=String(values[0]/values[1]);
+        currentNumber=String(values[1]/values[0]);
     }
     updateDisplay(currentNumber);
 }
