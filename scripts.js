@@ -83,6 +83,7 @@ function calculate(){
                 currentNumber=null;
                 break;
         }
+        operationFlag=""; 
     }
 
 
@@ -110,9 +111,16 @@ function saveNumber(){
 }
 
 function setFlag(operand){
-    saveNumber();
-    operationFlag=operand;
+    if(operand=="-" && displayNumber==""&& (operationFlag!=="" || pastNumber===null)){
+        displayNumber="-"
+        updateDisplay(displayNumber);
     }
+    else{
+        saveNumber();
+        operationFlag=operand;
+    }
+}
+
 
 function add(){
     if(pastNumber===null){
