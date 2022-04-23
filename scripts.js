@@ -3,6 +3,7 @@ let operationButtons = document.querySelectorAll(".operationButton");
 let equalButton = document.querySelector("#bEqual");
 let clearButton = document.querySelector("#C");
 let display = document.querySelector("#display");
+let point = document.querySelector("#point");
 let eventsButtons=[];
 let eventsOpButtons=[];
 
@@ -21,6 +22,40 @@ for(opButtn of [...operationButtons]){
 }
 let eventClearButton=clearButton.addEventListener('click',function(){clearDisplay()});
 let eventEqualButton = equalButton.addEventListener('click',function(){calculate()});
+let eventpoint=point.addEventListener('click',function(){addFloatingPoint()});
+
+
+document.addEventListener('keydown', (e) => {
+    let allowedSymbols = ['+','-','*','/']
+    if(!isNaN(parseInt(e.key))){
+        clickedValue(e.key);
+    }
+    else if(e.key == "Enter"||e.key == "="){
+        calculate()
+    }
+    else if (allowedSymbols.includes(e.key)){
+        setFlag(e.key);
+    }
+    else if(e.key=="Delete"){
+        clearDisplay();
+    }
+    else if(e.key=="."){
+        addFloatingPoint();
+    }
+    else{
+        console.log("Only numbers are allowed 😅");
+    }
+});
+
+
+function addFloatingPoint(){
+    if(!(displayNumber.includes("."))){
+        displayNumber+=".";
+        updateDisplay(displayNumber);
+        currentNumber*=1.0;
+    }
+}
+
 
 
 function clickedValue(value){

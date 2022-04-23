@@ -100,4 +100,5 @@ button:active{
 #display{
     align-self: flex-end;
     margin: 1rem;
+    font-size: 1.5rem;
 }
