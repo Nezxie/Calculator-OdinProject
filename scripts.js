@@ -6,15 +6,15 @@ let display = document.querySelector("#display");
 let eventsButtons=[];
 let eventsOpButtons=[];
 
-//(i know its javascript, but still)
-//all types will be string and i will convert right before calculations
+
 let operationFlag="";
-let currentNumber="";
-let pastNumber="";
+let displayNumber="";
+let currentNumber=null;
+let pastNumber=null;
 
 
 for(buttn of [...numberButtons]){
-eventsButtons.push(buttn.addEventListener('click',function(){rememberValue(this.textContent)}));
+eventsButtons.push(buttn.addEventListener('click',function(){clickedValue(this.textContent)}));
 }
 for(opButtn of [...operationButtons]){
     eventsOpButtons.push(opButtn.addEventListener('click',function(){setFlag(this.textContent)}));
@@ -22,37 +22,40 @@ for(opButtn of [...operationButtons]){
 let eventClearButton=clearButton.addEventListener('click',function(){clearDisplay()});
 let eventEqualButton = equalButton.addEventListener('click',function(){calculate()});
 
+
+function clickedValue(value){
+    displayNumber+=value;
+    currentNumber=parseFloat(displayNumber);
+    updateDisplay(displayNumber);
+}
+
 function calculate(){
-    if(pastNumber&currentNumber){
         switch(operationFlag){
             case "+":
-                add(toNumbers(currentNumber,pastNumber));
+                add();
                 break;
             case "-":
-                subtract(toNumbers(currentNumber,pastNumber));
+                subtract();
                 break;
             case "*":
-                multiply(toNumbers(currentNumber,pastNumber));
+                multiply();
                 break;
             case "/":
-                divide(toNumbers(currentNumber,pastNumber));
+                divide();
                 break;
             default:
                 pastNumber=currentNumber;
-                currentNumber="";
+                currentNumber=null;
                 break;
         }
     }
-}
 
-function toNumbers(s1,s2){
-    return [parseFloat(s1),parseFloat(s2)];
-}
 
 function clearDisplay(){
     updateDisplay("");
-    currentNumber="";
-    pastNumber="";
+    displayNumber="";
+    currentNumber=null;
+    pastNumber=null;
     operationFlag="";
 }
 
@@ -60,45 +63,75 @@ function updateDisplay(valueToDisplay){
     display.textContent = valueToDisplay;
 }
 
-function rememberValue(number){
-    currentNumber+=number;
-    updateDisplay(currentNumber);
+function saveNumber(){
+
+    if (currentNumber!==null){
+        pastNumber=currentNumber;
+        currentNumber=null;
+        displayNumber="";
+        updateDisplay(pastNumber.toString());
+    }
+
 }
 
 function setFlag(operand){
+    saveNumber();
     operationFlag=operand;
-    if(parseFloat(currentNumber)==NaN){
-        currentNumber = "0";
     }
-    pastNumber=currentNumber;
-    currentNumber="";
-}
 
-function add(values){
-    if(values.includes("ERROR")||values.includes("NaN")){
-        values[values.indexOf("ERROR")]="0";
-        values[values.indexOf("NaN")]="0";
+function add(){
+    if(pastNumber===null){
+        pastNumber=0;
     }
-    currentNumber=String(values[0]+values[1]);
-    updateDisplay(currentNumber);
+    if(currentNumber===null){
+        currentNumber=0;
+    }
+    currentNumber=currentNumber+pastNumber;
+    displayNumber=currentNumber.toString();
+    saveNumber();
+
 }
 
-function subtract(values){
-    currentNumber=String(values[0]-values[1]);
-    updateDisplay(currentNumber);
+function subtract(){
+    if(pastNumber===null){
+        pastNumber=0;
+    }
+    if(currentNumber===null){
+        currentNumber=0;
+    }
+    currentNumber=pastNumber-currentNumber;
+    displayNumber=currentNumber.toString();
+    updateDisplay(displayNumber);
+    saveNumber();
 }
 
-function multiply(values){
-    currentNumber=String(values[0]*values[1]);
-    updateDisplay(currentNumber);
+function multiply(){
+    if(pastNumber===null){
+        pastNumber=1;
+    }
+    if(currentNumber===null){
+        currentNumber=1;
+    }
+    currentNumber*=pastNumber;
+    displayNumber=currentNumber.toString();
+    updateDisplay(displayNumber);
+    saveNumber();
 }
 
-function divide(values){
-    if(values[0]==0){
-        currentNumber="ERROR";
+function divide(){
+    if(pastNumber===null){
+        pastNumber=1;
+    }
+    if(currentNumber===null){
+        currentNumber=1;
+    }
+    if(currentNumber==0){
+     updateDisplay("ERROR");   
     }
     else{
-        currentNumber=String(values[1]/values[0]);
+        currentNumber=pastNumber/currentNumber;
+        displayNumber=currentNumber.toString();
+        updateDisplay(displayNumber);
+        saveNumber();
     }
-    updateDisplay(currentNumber);
 }
