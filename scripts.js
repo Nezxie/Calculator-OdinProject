@@ -59,9 +59,13 @@ function addFloatingPoint(){
 
 
 function clickedValue(value){
-    displayNumber+=value;
-    currentNumber=parseFloat(displayNumber);
-    updateDisplay(displayNumber);
+    if(displayNumber[0]=="0"&& !displayNumber.includes(".")){
+        displayNumber="";
+    }
+        displayNumber+=value;
+        currentNumber=parseFloat(displayNumber);
+        updateDisplay(displayNumber);
+    
 }
 
 function calculate(){
