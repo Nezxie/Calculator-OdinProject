@@ -1,3 +1,11 @@
+/*
+TO-DO
+add scaling for mobile - font-size reduction by @media?
+why is C overflowing and others dont?
+bind text to "display window"
+
+*/
+
 html{
     margin: 0;
 }
