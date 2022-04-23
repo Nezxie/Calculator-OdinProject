@@ -4,6 +4,7 @@ let equalButton = document.querySelector("#bEqual");
 let clearButton = document.querySelector("#C");
 let display = document.querySelector("#display");
 let point = document.querySelector("#point");
+let backSpace = document.querySelector("#reverse");
 let eventsButtons=[];
 let eventsOpButtons=[];
 
@@ -23,9 +24,10 @@ for(opButtn of [...operationButtons]){
 let eventClearButton=clearButton.addEventListener('click',function(){clearDisplay()});
 let eventEqualButton = equalButton.addEventListener('click',function(){calculate()});
 let eventpoint=point.addEventListener('click',function(){addFloatingPoint()});
-
+let eventBackSpace=backSpace.addEventListener('click',function(){deleteLastChar()});
 
 document.addEventListener('keydown', (e) => {
+
     let allowedSymbols = ['+','-','*','/']
     if(!isNaN(parseInt(e.key))){
         clickedValue(e.key);
@@ -39,14 +41,22 @@ document.addEventListener('keydown', (e) => {
     else if(e.key=="Delete"){
         clearDisplay();
     }
-    else if(e.key=="."){
+    else if(e.key=="."||e.key==','){
         addFloatingPoint();
+    }
+    else if(e.key=="Backspace"){
+        deleteLastChar();
     }
     else{
         console.log("Only numbers are allowed 😅");
     }
 });
 
+function deleteLastChar(){
+    displayNumber = displayNumber.slice(0, -1);
+    updateDisplay(displayNumber);
+    currentNumber=parseFloat(displayNumber);
+}
 
 function addFloatingPoint(){
     if(!(displayNumber.includes("."))){
@@ -62,8 +72,14 @@ function clickedValue(value){
     if(displayNumber[0]=="0"&& !displayNumber.includes(".")){
         displayNumber="";
     }
+    
         displayNumber+=value;
         currentNumber=parseFloat(displayNumber);
+        //jak to dobrze zrobić ehhh???
+        if(displayNumber.length>16){
+            currentNumber.toFixed(3);
+            displayNumber=currentNumber.toString();
+        }
         updateDisplay(displayNumber);
     
 }

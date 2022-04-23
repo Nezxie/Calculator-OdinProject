@@ -9,6 +9,7 @@ bind text to "display window"
 html{
     margin: 0;
 }
+
 .wrapper{
     width: 90vw;
     height: 99vh;
@@ -16,15 +17,19 @@ html{
     justify-content: center;
     align-items: center;
     font-family: 'Lucida Console','Lucida Sans Typewriter',monaco,'Bitstream Vera Sans Mono',monospace; 
-   
+   font-size: 16px;
+
 }
+@media screen and (max-width: 600px)  {
+    .wrapper {
+        font-size: 8px;
+    }
+  }
 
 .calculator-frame{
-    border-bottom:1rem solid rgb(93, 96, 150);
-    border-right:1rem solid rgb(93, 96, 150);
-    border-radius: 2rem;
-    width: 30%;
-    height: 70%;
+    border-bottom:1em solid rgb(93, 96, 150);
+    border-right:1em solid rgb(93, 96, 150);
+    border-radius: 2em;
     min-width: fit-content;
     min-height: fit-content;
     background-color: rgb(107, 111, 173);
@@ -33,16 +38,18 @@ html{
 }
 .top{
     background-color: rgb(146, 165, 156);
-    border-top:1rem solid rgb(122, 138, 131);
-    border-left:1rem solid rgb(122, 138, 131);
-    margin: 2rem;
-    border-radius:2rem ;
+    border-top:1em solid rgb(122, 138, 131);
+    border-left:1em solid rgb(122, 138, 131);
+    margin: 2em;
+    border-radius:2em ;
     display: flex;
     flex-direction: column;
+    height: 4em;
 
 }
 .buttons{
-    margin: 2rem;
+    max-height: 90%;
+    margin: 2em;
     display:grid;
     grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows:   20% 20% 20% 20% 20%;
@@ -50,6 +57,8 @@ html{
 }
 
 button{
+    text-align: center;
+    padding: 0 0.75em;
     font-size: 2em;
     color:#333;
     font-family: 'Lucida Console','Lucida Sans Typewriter',monaco,'Bitstream Vera Sans Mono',monospace; 
@@ -58,47 +67,77 @@ button{
     
     border-bottom:.5em solid rgb(221, 216, 178);
     border-right:.5em solid rgb(221, 216, 178);  
+    border-top:.5em solid rgb(236, 232, 204);
+    border-left:.5em solid rgb(236, 232, 204);  
         
     border-radius: 1.75em;
     margin: .25em;
     cursor:pointer;
 
 }
-button:active{
-    border:.5em solid rgb(236, 231, 190);
-    border:none;
+
+.numberButton:active,
+.operationButton:active,
+#point:active,
+#bEqual:active{
     border-top:.5em solid rgb(221, 216, 178);
     border-left:.5em solid rgb(221, 216, 178);
+    border-bottom:.5em solid rgb(236, 232, 204);
+    border-right:.5em solid rgb(236, 232, 204);
 }
 
 #C{
+    padding: 0 0.75em;
     background-color: rgb(165, 60, 60);
-    border:.5rem solid rgb(165, 60, 60);
-    border-bottom:.5rem solid rgb(145, 53, 53);
-    border-right:.5rem solid rgb(145, 53, 53);  
-    justify-self:right;
-    margin:1rem;
-    width: 50%;
-    grid-column: 4;
-    grid-row: 1;
+    border:.5em solid rgb(165, 60, 60);
+    border-bottom:.5em solid rgb(145, 53, 53);
+    border-right:.5em solid rgb(145, 53, 53); 
+    border-top:.5em solid rgb(173, 74, 74);
+    border-left:.5em solid rgb(173, 74, 74);;  
+
+
+
 }
 #C:active{
-    border:.5rem solid rgb(165, 60, 60);
+    border:.5em solid rgb(165, 60, 60);
     
-    border-top:.5rem solid rgb(145, 53, 53);
-    border-left:.5rem solid rgb(145, 53, 53);
+    border-top:.5em solid rgb(145, 53, 53);
+    border-left:.5em solid rgb(145, 53, 53);
+    border-right:.5em solid rgb(173, 74, 74);
+    border-bottom:.5em solid rgb(173, 74, 74);;  
 }
 .nullBut{
     background-color: rgba(0,0,0,0);
     border:none;
     cursor:default;
 }
-.nulBut:active{
-    border:none;    
+button:active{
+    border:none;
+    border:rgba(0,0,0,0);
+}
+#reverse{
+    background-color: rgb(165, 93, 60);
+    border:.5em solid rgb(165, 93, 60);
+    border-bottom:.5em solid rgb(134, 76, 49);
+    border-right:.5em solid rgb(134, 76, 49);
+    border-top:.5em solid rgb(167, 101, 71);
+    border-left:.5em solid rgb(167, 101, 71);;  
+
+    padding: 0 0.75em;
+
+}
+#reverse:active{
+    border:.5em solid rgb(165, 93, 60);
+    
+    border-top:.5em solid rgb(134, 76, 49);
+    border-left:.5em solid rgb(134, 76, 49);
+    border-bottom:.5em solid rgb(167, 101, 71);
+    border-right:.5em solid rgb(167, 101, 71);;  
+
 }
 
 #display{
     align-self: flex-end;
-    margin: 1rem;
-    font-size: 1.5rem;
+    margin: 1em;
+    font-size: 1.5em;
 }
